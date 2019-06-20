@@ -20,6 +20,9 @@ Public Class UserControl1
 
     Public wnTimeOut As Integer
     Public pSuccess(3) As Boolean ''= False
+    Public pSuccessDateTime(3) As DateTime
+    Public pFail(3) As Boolean ''= False
+    Public pFailCnt(3) As Integer
 
     Public LanErr As Boolean
 
@@ -39,6 +42,21 @@ Public Class UserControl1
         pSuccess(1) = True
         pSuccess(2) = True
         pSuccess(3) = True
+
+        pSuccessDateTime(0) = DateTime.Now
+        pSuccessDateTime(1) = DateTime.Now
+        pSuccessDateTime(2) = DateTime.Now
+        pSuccessDateTime(3) = DateTime.Now
+
+        pFail(0) = True
+        pFail(1) = True
+        pFail(2) = True
+        pFail(3) = True
+
+        pFailCnt(0) = 0
+        pFailCnt(1) = 0
+        pFailCnt(2) = 0
+        pFailCnt(3) = 0
 
         LanErr = True
 
@@ -276,10 +294,11 @@ Public Class UserControl1
                     Form1.lvMainIPList1.Items(cIndex).ForeColor = Color.DarkGreen
 
                     If pSuccess(0) = True Then
-                        logFile.LogDataSave1(Form1.lvMainIPList1.Items(cIndex).SubItems(4).Text, _
+                        logFile.LogDataSave1(Form1.lvMainIPList1.Items(cIndex).SubItems(4).Text & " " & CInt((DateTime.Now - pSuccessDateTime(0)).TotalSeconds) & " secs", _
                                              Form1.lvMainIPList1.Items(cIndex).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(cIndex).SubItems(2).Text, _
                                              Form1.lvMainIPList1.Items(cIndex).SubItems(3).Text)
                         pSuccess(0) = False
+                        pFail(0) = True
                     End If
 
                 Else
@@ -290,7 +309,7 @@ Public Class UserControl1
                         wnCar1.BackColor = Color.Red
                     End If
 
-                    Form1.lvMainIPList1.Items(cIndex).SubItems(4).Text = "IP Fail TimeOut " & rp(0).RoundtripTime & " ms"
+                    Form1.lvMainIPList1.Items(cIndex).SubItems(4).Text = "IP Fail TimeOut " & rp(0).RoundtripTime & " ms " & pFailCnt(0) + 1 & " cnt"
 
                     If Form1.lvMainIPList1.Items(cIndex).Checked = True Then
                         ''//fail count 100000 --> 0   2015-12-08
@@ -301,9 +320,14 @@ Public Class UserControl1
                         'Form1.lvMainIPList1.Items(cIndex).SubItems(5).Text = Convert.ToString(Convert.ToInt32(Form1.lvMainIPList1.Items(cIndex).SubItems(5).Text) + 1)
                         Form1.lvMainIPList1.Items(cIndex).ForeColor = Color.Red
                         ''log
-                        logFile.LogDataSave1(Form1.lvMainIPList1.Items(cIndex).SubItems(4).Text, _
-                                             Form1.lvMainIPList1.Items(cIndex).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(cIndex).SubItems(2).Text, _
-                                             Form1.lvMainIPList1.Items(cIndex).SubItems(3).Text)
+                        If pFail(0) = True Then
+                            logFile.LogDataSave1(Form1.lvMainIPList1.Items(cIndex).SubItems(4).Text, _
+                                                Form1.lvMainIPList1.Items(cIndex).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(cIndex).SubItems(2).Text, _
+                                                Form1.lvMainIPList1.Items(cIndex).SubItems(3).Text)
+                            pFail(0) = False
+                            pFailCnt(0) = pFailCnt(0) + 1
+                            pSuccessDateTime(0) = DateTime.Now
+                        End If
                     Else
                         Form1.lvMainIPList1.Items(cIndex).ForeColor = Color.Black
                     End If
@@ -328,10 +352,11 @@ Public Class UserControl1
                     Form1.lvMainIPList1.Items(aIndex1).ForeColor = Color.DarkGreen
 
                     If pSuccess(1) = True Then
-                        logFile.LogDataSave1(Form1.lvMainIPList1.Items(aIndex1).SubItems(4).Text, _
+                        logFile.LogDataSave1(Form1.lvMainIPList1.Items(aIndex1).SubItems(4).Text & " " & CInt((DateTime.Now - pSuccessDateTime(1)).TotalSeconds) & " secs", _
                                              Form1.lvMainIPList1.Items(aIndex1).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(aIndex1).SubItems(2).Text, _
                                              Form1.lvMainIPList1.Items(aIndex1).SubItems(3).Text)
                         pSuccess(1) = False
+                        pFail(1) = True
                     End If
 
                 Else
@@ -342,7 +367,7 @@ Public Class UserControl1
                     End If
 
                     ''Form1.lvMainIPList1.Items(aIndex1).SubItems(4).Text = "IP " & IPStatus.TimedOut.ToString & "  " & rp(1).RoundtripTime & " ms"
-                    Form1.lvMainIPList1.Items(aIndex1).SubItems(4).Text = "IP Fail TimeOut " & rp(1).RoundtripTime & " ms"
+                    Form1.lvMainIPList1.Items(aIndex1).SubItems(4).Text = "IP Fail TimeOut " & rp(1).RoundtripTime & " ms " & pFailCnt(1) + 1 & " cnt"
 
                     If Form1.lvMainIPList1.Items(aIndex1).Checked = True Then
                         ''//fail count 100000 --> 0   2015-12-08
@@ -353,9 +378,14 @@ Public Class UserControl1
                         'Form1.lvMainIPList1.Items(aIndex1).SubItems(5).Text = Convert.ToString(Convert.ToInt32(Form1.lvMainIPList1.Items(aIndex1).SubItems(5).Text) + 1)
                         Form1.lvMainIPList1.Items(aIndex1).ForeColor = Color.Red
                         ''log
-                        logFile.LogDataSave1(Form1.lvMainIPList1.Items(aIndex1).SubItems(4).Text, _
-                                             Form1.lvMainIPList1.Items(aIndex1).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(aIndex1).SubItems(2).Text, _
-                                             Form1.lvMainIPList1.Items(aIndex1).SubItems(3).Text)
+                        If pFail(1) = True Then
+                            logFile.LogDataSave1(Form1.lvMainIPList1.Items(aIndex1).SubItems(4).Text, _
+                                                 Form1.lvMainIPList1.Items(aIndex1).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(aIndex1).SubItems(2).Text, _
+                                                 Form1.lvMainIPList1.Items(aIndex1).SubItems(3).Text)
+                            pFail(1) = False
+                            pFailCnt(1) = pFailCnt(1) + 1
+                            pSuccessDateTime(1) = DateTime.Now
+                        End If
                     Else
                         Form1.lvMainIPList1.Items(aIndex1).ForeColor = Color.Black
                     End If
@@ -379,10 +409,11 @@ Public Class UserControl1
                     Form1.lvMainIPList1.Items(aindex2).ForeColor = Color.DarkGreen
 
                     If pSuccess(2) = True Then
-                        logFile.LogDataSave1(Form1.lvMainIPList1.Items(aindex2).SubItems(4).Text, _
+                        logFile.LogDataSave1(Form1.lvMainIPList1.Items(aindex2).SubItems(4).Text & " " & CInt((DateTime.Now - pSuccessDateTime(2)).TotalSeconds) & " secs", _
                                              Form1.lvMainIPList1.Items(aindex2).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(aindex2).SubItems(2).Text, _
                                              Form1.lvMainIPList1.Items(aindex2).SubItems(3).Text)
                         pSuccess(2) = False
+                        pFail(2) = True
                     End If
 
                 Else
@@ -396,7 +427,7 @@ Public Class UserControl1
                     ''//wnAP2.BackColor = Color.Red
 
                     ''Form1.lvMainIPList1.Items(aindex2).SubItems(4).Text = "IP " & IPStatus.TimedOut.ToString & "  " & rp(1).RoundtripTime & " ms"
-                    Form1.lvMainIPList1.Items(aindex2).SubItems(4).Text = "IP Fail TimeOut " & rp(2).RoundtripTime & " ms"
+                    Form1.lvMainIPList1.Items(aindex2).SubItems(4).Text = "IP Fail TimeOut " & rp(2).RoundtripTime & " ms " & pFailCnt(2) + 1 & " cnt"
 
                     If Form1.lvMainIPList1.Items(aindex2).Checked = True Then
                         ''//fail count 100000 --> 0   2015-12-08
@@ -407,9 +438,14 @@ Public Class UserControl1
                         'Form1.lvMainIPList1.Items(aindex2).SubItems(5).Text = Convert.ToString(Convert.ToInt32(Form1.lvMainIPList1.Items(aindex2).SubItems(5).Text) + 1)
                         Form1.lvMainIPList1.Items(aindex2).ForeColor = Color.Red
                         ''log
-                        logFile.LogDataSave1(Form1.lvMainIPList1.Items(aindex2).SubItems(4).Text, _
-                                             Form1.lvMainIPList1.Items(aindex2).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(aindex2).SubItems(2).Text, _
-                                             Form1.lvMainIPList1.Items(aindex2).SubItems(3).Text)
+                        If pFail(2) = True Then
+                            logFile.LogDataSave1(Form1.lvMainIPList1.Items(aindex2).SubItems(4).Text, _
+                                                 Form1.lvMainIPList1.Items(aindex2).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(aindex2).SubItems(2).Text, _
+                                                 Form1.lvMainIPList1.Items(aindex2).SubItems(3).Text)
+                            pFail(2) = False
+                            pFailCnt(2) = pFailCnt(2) + 1
+                            pSuccessDateTime(2) = DateTime.Now
+                        End If
                     Else
                         Form1.lvMainIPList1.Items(aindex2).ForeColor = Color.Black
                     End If
@@ -432,10 +468,11 @@ Public Class UserControl1
                     Form1.lvMainIPList1.Items(aindex3).ForeColor = Color.DarkGreen
 
                     If pSuccess(3) = True Then
-                        logFile.LogDataSave1(Form1.lvMainIPList1.Items(aindex3).SubItems(4).Text, _
+                        logFile.LogDataSave1(Form1.lvMainIPList1.Items(aindex3).SubItems(4).Text & " " & CInt((DateTime.Now - pSuccessDateTime(3)).TotalSeconds) & " secs", _
                                              Form1.lvMainIPList1.Items(aindex3).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(aindex3).SubItems(2).Text, _
                                              Form1.lvMainIPList1.Items(aindex3).SubItems(3).Text)
                         pSuccess(3) = False
+                        pFail(3) = True
                     End If
                 Else
 
@@ -448,7 +485,7 @@ Public Class UserControl1
                     ''//wnPLC1.BackColor = Color.Red
 
                     ''Form1.lvMainIPList1.Items(aindex3).SubItems(4).Text = "IP " & IPStatus.TimedOut.ToString & "  " & rp(1).RoundtripTime & " ms"
-                    Form1.lvMainIPList1.Items(aindex3).SubItems(4).Text = "IP Fail TimeOut " & rp(3).RoundtripTime & " ms"
+                    Form1.lvMainIPList1.Items(aindex3).SubItems(4).Text = "IP Fail TimeOut " & rp(3).RoundtripTime & " ms " & pFailCnt(3) + 1 & " cnt"
 
                     If Form1.lvMainIPList1.Items(aindex3).Checked = True Then
                         ''//fail count 100000 --> 0   2015-12-08
@@ -459,9 +496,14 @@ Public Class UserControl1
                         'Form1.lvMainIPList1.Items(aindex3).SubItems(5).Text = Convert.ToString(Convert.ToInt32(Form1.lvMainIPList1.Items(aindex3).SubItems(5).Text) + 1)
                         Form1.lvMainIPList1.Items(aindex3).ForeColor = Color.Red
                         ''log
-                        logFile.LogDataSave1(Form1.lvMainIPList1.Items(aindex3).SubItems(4).Text, _
-                                             Form1.lvMainIPList1.Items(aindex3).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(aindex3).SubItems(2).Text, _
-                                             Form1.lvMainIPList1.Items(aindex3).SubItems(3).Text)
+                        If pFail(3) = True Then
+                            logFile.LogDataSave1(Form1.lvMainIPList1.Items(aindex3).SubItems(4).Text, _
+                                                 Form1.lvMainIPList1.Items(aindex3).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(aindex3).SubItems(2).Text, _
+                                                 Form1.lvMainIPList1.Items(aindex3).SubItems(3).Text)
+                            pFail(3) = False
+                            pFailCnt(3) = pFailCnt(3) + 1
+                            pSuccessDateTime(3) = DateTime.Now
+                        End If
                     Else
                         Form1.lvMainIPList1.Items(aindex3).ForeColor = Color.Black
                     End If
