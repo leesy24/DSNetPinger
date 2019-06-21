@@ -267,3 +267,14 @@ D:\VS2010\VB.net\WMSPinger_posco\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\ob
 D:\VS2010\VB.net\WMSPinger_posco\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\obj\x86\Debug\DSNetPinger.Resources.resources
 D:\VS2010\VB.net\WMSPinger_posco\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\obj\x86\Debug\DSNetPinger.UserControl1.resources
 D:\VS2010\VB.net\WMSPinger_posco\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\obj\x86\Debug\DSNetPinger.vbproj.GenerateResource.Cache
+D:\DSNetPinger_20190621\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\bin\Debug\DSNetPinger.exe
+D:\DSNetPinger_20190621\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\bin\Debug\DSNetPinger.pdb
+D:\DSNetPinger_20190621\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\bin\Debug\DSNetPinger.xml
+D:\DSNetPinger_20190621\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\obj\x86\Debug\DSNetPinger.Form1.resources
+D:\DSNetPinger_20190621\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\obj\x86\Debug\DSNetPinger.Resources.resources
+D:\DSNetPinger_20190621\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\obj\x86\Debug\DSNetPinger.UserControl1.resources
+D:\DSNetPinger_20190621\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\obj\x86\Debug\DSNetPinger.vbproj.GenerateResource.cache
+D:\DSNetPinger_20190621\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\obj\x86\Debug\DSNetPinger.vbproj.CoreCompileInputs.cache
+D:\DSNetPinger_20190621\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\obj\x86\Debug\DSNetPinger.exe
+D:\DSNetPinger_20190621\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\obj\x86\Debug\DSNetPinger.xml
+D:\DSNetPinger_20190621\DSNetPinger_ph_a6(1원료)_putty\DSNetPinger\obj\x86\Debug\DSNetPinger.pdb
