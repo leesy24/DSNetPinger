@@ -335,7 +335,7 @@ Partial Class Form1
         Me.Controls.Add(Me.picMainTop)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Form1"
-        Me.Text = "FINEX WIRELESS NETWORK MONITERING SYSTEM v1.05"
+        Me.Text = "FINEX WIRELESS NETWORK MONITERING SYSTEM v1.06"
         Me.grMainLeft1.ResumeLayout(False)
         Me.grMainLeft1.PerformLayout()
         CType(Me.picBackGround, System.ComponentModel.ISupportInitialize).EndInit()
