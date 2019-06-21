@@ -332,8 +332,8 @@ Public Class UserControl1
                         ''log
                         If pFail(0) = True Then
                             logFile.LogDataSave1(Form1.lvMainIPList1.Items(cIndex).SubItems(4).Text, _
-                                                Form1.lvMainIPList1.Items(cIndex).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(cIndex).SubItems(2).Text, _
-                                                Form1.lvMainIPList1.Items(cIndex).SubItems(3).Text)
+                                                 Form1.lvMainIPList1.Items(cIndex).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(cIndex).SubItems(2).Text, _
+                                                 Form1.lvMainIPList1.Items(cIndex).SubItems(3).Text)
                             pFail(0) = False
                             pFailCnt(0) = pFailCnt(0) + 1
                             pFailDayCnt(0) = pFailDayCnt(0) + 1
