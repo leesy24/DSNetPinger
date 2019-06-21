@@ -22,7 +22,8 @@ Public Class UserControl1
     Public pSuccess(3) As Boolean ''= False
     Public pSuccessDateTime(3) As DateTime
     Public pFail(3) As Boolean ''= False
-    Public pFailCnt(3) As Integer
+    Public pFailCnt(3) As ULong
+    Public pFailDayCnt(3) As ULong
 
     Public LanErr As Boolean
 
@@ -57,6 +58,11 @@ Public Class UserControl1
         pFailCnt(1) = 0
         pFailCnt(2) = 0
         pFailCnt(3) = 0
+
+        pFailDayCnt(0) = 0
+        pFailDayCnt(1) = 0
+        pFailDayCnt(2) = 0
+        pFailDayCnt(3) = 0
 
         LanErr = True
 
@@ -309,7 +315,11 @@ Public Class UserControl1
                         wnCar1.BackColor = Color.Red
                     End If
 
-                    Form1.lvMainIPList1.Items(cIndex).SubItems(4).Text = "IP Fail TimeOut " & rp(0).RoundtripTime & " ms " & pFailCnt(0) + 1 & " cnt"
+                    If DateTime.Now.Day <> pSuccessDateTime(0).Day Then
+                        pFailDayCnt(0) = 0
+                    End If
+                    
+                    Form1.lvMainIPList1.Items(cIndex).SubItems(4).Text = "IP Fail TimeOut " & rp(0).RoundtripTime & " ms " & pFailCnt(0) + 1 & ", " & pFailDayCnt(0) + 1 & " cnt"
 
                     If Form1.lvMainIPList1.Items(cIndex).Checked = True Then
                         ''//fail count 100000 --> 0   2015-12-08
@@ -326,6 +336,7 @@ Public Class UserControl1
                                                 Form1.lvMainIPList1.Items(cIndex).SubItems(3).Text)
                             pFail(0) = False
                             pFailCnt(0) = pFailCnt(0) + 1
+                            pFailDayCnt(0) = pFailDayCnt(0) + 1
                             pSuccessDateTime(0) = DateTime.Now
                         End If
                     Else
@@ -366,8 +377,12 @@ Public Class UserControl1
                         wnAP1.BackColor = Color.Red
                     End If
 
+                    If DateTime.Now.Day <> pSuccessDateTime(1).Day Then
+                        pFailDayCnt(1) = 0
+                    End If
+
                     ''Form1.lvMainIPList1.Items(aIndex1).SubItems(4).Text = "IP " & IPStatus.TimedOut.ToString & "  " & rp(1).RoundtripTime & " ms"
-                    Form1.lvMainIPList1.Items(aIndex1).SubItems(4).Text = "IP Fail TimeOut " & rp(1).RoundtripTime & " ms " & pFailCnt(1) + 1 & " cnt"
+                    Form1.lvMainIPList1.Items(aIndex1).SubItems(4).Text = "IP Fail TimeOut " & rp(1).RoundtripTime & " ms " & pFailCnt(1) + 1 & ", " & pFailDayCnt(1) + 1 & " cnt"
 
                     If Form1.lvMainIPList1.Items(aIndex1).Checked = True Then
                         ''//fail count 100000 --> 0   2015-12-08
@@ -384,6 +399,7 @@ Public Class UserControl1
                                                  Form1.lvMainIPList1.Items(aIndex1).SubItems(3).Text)
                             pFail(1) = False
                             pFailCnt(1) = pFailCnt(1) + 1
+                            pFailDayCnt(1) = pFailDayCnt(1) + 1
                             pSuccessDateTime(1) = DateTime.Now
                         End If
                     Else
@@ -426,8 +442,12 @@ Public Class UserControl1
 
                     ''//wnAP2.BackColor = Color.Red
 
+                    If DateTime.Now.Day <> pSuccessDateTime(2).Day Then
+                        pFailDayCnt(2) = 0
+                    End If
+
                     ''Form1.lvMainIPList1.Items(aindex2).SubItems(4).Text = "IP " & IPStatus.TimedOut.ToString & "  " & rp(1).RoundtripTime & " ms"
-                    Form1.lvMainIPList1.Items(aindex2).SubItems(4).Text = "IP Fail TimeOut " & rp(2).RoundtripTime & " ms " & pFailCnt(2) + 1 & " cnt"
+                    Form1.lvMainIPList1.Items(aindex2).SubItems(4).Text = "IP Fail TimeOut " & rp(2).RoundtripTime & " ms " & pFailCnt(2) + 1 & ", " & pFailDayCnt(2) + 1 & " cnt"
 
                     If Form1.lvMainIPList1.Items(aindex2).Checked = True Then
                         ''//fail count 100000 --> 0   2015-12-08
@@ -444,6 +464,7 @@ Public Class UserControl1
                                                  Form1.lvMainIPList1.Items(aindex2).SubItems(3).Text)
                             pFail(2) = False
                             pFailCnt(2) = pFailCnt(2) + 1
+                            pFailDayCnt(2) = pFailDayCnt(2) + 1
                             pSuccessDateTime(2) = DateTime.Now
                         End If
                     Else
@@ -484,8 +505,12 @@ Public Class UserControl1
 
                     ''//wnPLC1.BackColor = Color.Red
 
+                    If DateTime.Now.Day <> pSuccessDateTime(3).Day Then
+                        pFailDayCnt(3) = 0
+                    End If
+
                     ''Form1.lvMainIPList1.Items(aindex3).SubItems(4).Text = "IP " & IPStatus.TimedOut.ToString & "  " & rp(1).RoundtripTime & " ms"
-                    Form1.lvMainIPList1.Items(aindex3).SubItems(4).Text = "IP Fail TimeOut " & rp(3).RoundtripTime & " ms " & pFailCnt(3) + 1 & " cnt"
+                    Form1.lvMainIPList1.Items(aindex3).SubItems(4).Text = "IP Fail TimeOut " & rp(3).RoundtripTime & " ms " & pFailCnt(3) + 1 & ", " & pFailDayCnt(3) + 1 & " cnt"
 
                     If Form1.lvMainIPList1.Items(aindex3).Checked = True Then
                         ''//fail count 100000 --> 0   2015-12-08
@@ -502,6 +527,7 @@ Public Class UserControl1
                                                  Form1.lvMainIPList1.Items(aindex3).SubItems(3).Text)
                             pFail(3) = False
                             pFailCnt(3) = pFailCnt(3) + 1
+                            pFailDayCnt(3) = pFailDayCnt(3) + 1
                             pSuccessDateTime(3) = DateTime.Now
                         End If
                     Else
