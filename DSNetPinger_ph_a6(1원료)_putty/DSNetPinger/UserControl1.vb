@@ -19,11 +19,12 @@ Public Class UserControl1
     Public aindex3 As Integer
 
     Public wnTimeOut As Integer
+    Public pDateTime(3) As DateTime
     Public pSuccess(3) As Boolean ''= False
     Public pSuccessDateTime(3) As DateTime
     Public pFail(3) As Boolean ''= False
     Public pFailCnt(3) As ULong
-    Public pFailDayCnt(3) As ULong
+    Public pFailDayCnt(3) As Long
 
     Public LanErr As Boolean
 
@@ -38,6 +39,11 @@ Public Class UserControl1
         'mcTitle.Parent = PictureBox1
         'mcTitle.Top = 0
         'mcTitle.Left = (PictureBox1.Width / 2) - (mcTitle.Width / 2)
+
+        pDateTime(0) = DateTime.Now
+        pDateTime(1) = DateTime.Now
+        pDateTime(2) = DateTime.Now
+        pDateTime(3) = DateTime.Now
 
         pSuccess(0) = True
         pSuccess(1) = True
@@ -307,6 +313,10 @@ Public Class UserControl1
                         pFail(0) = True
                     End If
 
+                    If DateTime.Now.Day <> pDateTime(0).Day Then
+                        pFailDayCnt(0) = 0
+                    End If
+
                 Else
                     ''//wnCar1.BackColor = Color.Red
                     If InStr(mcTitle.Text, "HUB") > 0 Then
@@ -315,10 +325,16 @@ Public Class UserControl1
                         wnCar1.BackColor = Color.Red
                     End If
 
-                    If DateTime.Now.Day <> pSuccessDateTime(0).Day Then
-                        pFailDayCnt(0) = 0
+                    If DateTime.Now.Day <> pDateTime(0).Day Then
+                        If pFail(0) = True Then
+                            pFailDayCnt(0) = 0
+                        Else
+                            pFail(0) = True
+                            pFailCnt(0) = pFailCnt(0) - 1
+                            pFailDayCnt(0) = -1
+                        End If
                     End If
-                    
+
                     Form1.lvMainIPList1.Items(cIndex).SubItems(4).Text = "IP Fail TimeOut " & rp(0).RoundtripTime & " ms " & pFailCnt(0) + 1 & ", " & pFailDayCnt(0) + 1 & " cnt"
 
                     If Form1.lvMainIPList1.Items(cIndex).Checked = True Then
@@ -335,9 +351,11 @@ Public Class UserControl1
                                                  Form1.lvMainIPList1.Items(cIndex).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(cIndex).SubItems(2).Text, _
                                                  Form1.lvMainIPList1.Items(cIndex).SubItems(3).Text)
                             pFail(0) = False
+                            If pFailDayCnt(0) <> -1 Then
+                                pSuccessDateTime(0) = DateTime.Now
+                            End If
                             pFailCnt(0) = pFailCnt(0) + 1
                             pFailDayCnt(0) = pFailDayCnt(0) + 1
-                            pSuccessDateTime(0) = DateTime.Now
                         End If
                     Else
                         Form1.lvMainIPList1.Items(cIndex).ForeColor = Color.Black
@@ -346,6 +364,8 @@ Public Class UserControl1
                     pSuccess(0) = True
 
                 End If
+
+                pDateTime(0) = DateTime.Now
 
                 ''//Machine AP1
                 If rp(1).Status = IPStatus.Success Then
@@ -370,6 +390,10 @@ Public Class UserControl1
                         pFail(1) = True
                     End If
 
+                    If DateTime.Now.Day <> pDateTime(1).Day Then
+                        pFailDayCnt(1) = 0
+                    End If
+
                 Else
                     If InStr(mcTitle.Text, "HUB") > 0 Then
                         Form1.cmdNO1.BackColor = Color.Red
@@ -377,8 +401,14 @@ Public Class UserControl1
                         wnAP1.BackColor = Color.Red
                     End If
 
-                    If DateTime.Now.Day <> pSuccessDateTime(1).Day Then
-                        pFailDayCnt(1) = 0
+                    If DateTime.Now.Day <> pDateTime(1).Day Then
+                        If pFail(1) = True Then
+                            pFailDayCnt(1) = 0
+                        Else
+                            pFail(1) = True
+                            pFailCnt(1) = pFailCnt(1) - 1
+                            pFailDayCnt(1) = -1
+                        End If
                     End If
 
                     ''Form1.lvMainIPList1.Items(aIndex1).SubItems(4).Text = "IP " & IPStatus.TimedOut.ToString & "  " & rp(1).RoundtripTime & " ms"
@@ -398,9 +428,11 @@ Public Class UserControl1
                                                  Form1.lvMainIPList1.Items(aIndex1).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(aIndex1).SubItems(2).Text, _
                                                  Form1.lvMainIPList1.Items(aIndex1).SubItems(3).Text)
                             pFail(1) = False
+                            If pFailDayCnt(1) <> -1 Then
+                                pSuccessDateTime(1) = DateTime.Now
+                            End If
                             pFailCnt(1) = pFailCnt(1) + 1
                             pFailDayCnt(1) = pFailDayCnt(1) + 1
-                            pSuccessDateTime(1) = DateTime.Now
                         End If
                     Else
                         Form1.lvMainIPList1.Items(aIndex1).ForeColor = Color.Black
@@ -408,6 +440,8 @@ Public Class UserControl1
 
                     pSuccess(1) = True
                 End If
+
+                pDateTime(1) = DateTime.Now
 
                     ''//Machine AP2
                 If rp(2).Status = IPStatus.Success Then
@@ -432,6 +466,10 @@ Public Class UserControl1
                         pFail(2) = True
                     End If
 
+                    If DateTime.Now.Day <> pDateTime(2).Day Then
+                        pFailDayCnt(2) = 0
+                    End If
+
                 Else
 
                     If InStr(mcTitle.Text, "HUB") > 0 Then
@@ -442,8 +480,14 @@ Public Class UserControl1
 
                     ''//wnAP2.BackColor = Color.Red
 
-                    If DateTime.Now.Day <> pSuccessDateTime(2).Day Then
-                        pFailDayCnt(2) = 0
+                    If DateTime.Now.Day <> pDateTime(2).Day Then
+                        If pFail(2) = True Then
+                            pFailDayCnt(2) = 0
+                        Else
+                            pFail(2) = True
+                            pFailCnt(2) = pFailCnt(2) - 1
+                            pFailDayCnt(2) = -1
+                        End If
                     End If
 
                     ''Form1.lvMainIPList1.Items(aindex2).SubItems(4).Text = "IP " & IPStatus.TimedOut.ToString & "  " & rp(1).RoundtripTime & " ms"
@@ -463,15 +507,19 @@ Public Class UserControl1
                                                  Form1.lvMainIPList1.Items(aindex2).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(aindex2).SubItems(2).Text, _
                                                  Form1.lvMainIPList1.Items(aindex2).SubItems(3).Text)
                             pFail(2) = False
+                            If pFailDayCnt(2) <> -1 Then
+                                pSuccessDateTime(2) = DateTime.Now
+                            End If
                             pFailCnt(2) = pFailCnt(2) + 1
                             pFailDayCnt(2) = pFailDayCnt(2) + 1
-                            pSuccessDateTime(2) = DateTime.Now
                         End If
                     Else
                         Form1.lvMainIPList1.Items(aindex2).ForeColor = Color.Black
                     End If
                     pSuccess(2) = True
                 End If
+
+                pDateTime(2) = DateTime.Now
 
                     ''//Machine PLC
                 If rp(3).Status = IPStatus.Success Then
@@ -495,6 +543,11 @@ Public Class UserControl1
                         pSuccess(3) = False
                         pFail(3) = True
                     End If
+
+                    If DateTime.Now.Day <> pDateTime(3).Day Then
+                        pFailDayCnt(3) = 0
+                    End If
+
                 Else
 
                     If InStr(mcTitle.Text, "HUB") > 0 Then
@@ -505,8 +558,14 @@ Public Class UserControl1
 
                     ''//wnPLC1.BackColor = Color.Red
 
-                    If DateTime.Now.Day <> pSuccessDateTime(3).Day Then
-                        pFailDayCnt(3) = 0
+                    If DateTime.Now.Day <> pDateTime(3).Day Then
+                        If pFail(3) = True Then
+                            pFailDayCnt(3) = 0
+                        Else
+                            pFail(3) = True
+                            pFailCnt(3) = pFailCnt(3) - 1
+                            pFailDayCnt(3) = -1
+                        End If
                     End If
 
                     ''Form1.lvMainIPList1.Items(aindex3).SubItems(4).Text = "IP " & IPStatus.TimedOut.ToString & "  " & rp(1).RoundtripTime & " ms"
@@ -526,30 +585,35 @@ Public Class UserControl1
                                                  Form1.lvMainIPList1.Items(aindex3).SubItems(1).Text & "-" & Form1.lvMainIPList1.Items(aindex3).SubItems(2).Text, _
                                                  Form1.lvMainIPList1.Items(aindex3).SubItems(3).Text)
                             pFail(3) = False
+                            If pFailDayCnt(3) <> -1 Then
+                                pSuccessDateTime(3) = DateTime.Now
+                            End If
                             pFailCnt(3) = pFailCnt(3) + 1
                             pFailDayCnt(3) = pFailDayCnt(3) + 1
-                            pSuccessDateTime(3) = DateTime.Now
                         End If
                     Else
                         Form1.lvMainIPList1.Items(aindex3).ForeColor = Color.Black
                     End If
                     pSuccess(3) = True
                 End If
-                Else
-                    ''//error ?????????????
-                    LanErr = True
 
-                    Form1.lvMainIPList1.Items(cIndex).SubItems(4).Text = "WMS System Error LAN Cable Check."
-                    Form1.lvMainIPList1.Items(aIndex1).SubItems(4).Text = "WMS System Error LAN Cable Check."
-                    Form1.lvMainIPList1.Items(aindex2).SubItems(4).Text = "WMS System Error LAN Cable Check."
-                    Form1.lvMainIPList1.Items(aindex3).SubItems(4).Text = "WMS System Error LAN Cable Check."
+                pDateTime(3) = DateTime.Now
 
-                    Form1.lvMainIPList1.Items(cIndex).ForeColor = Color.Red
-                    Form1.lvMainIPList1.Items(aIndex1).ForeColor = Color.Red
-                    Form1.lvMainIPList1.Items(aindex2).ForeColor = Color.Red
-                    Form1.lvMainIPList1.Items(aindex3).ForeColor = Color.Red
+            Else '' of If LanErr = True Then
+                ''//error ?????????????
+                LanErr = True
 
-                End If
+                Form1.lvMainIPList1.Items(cIndex).SubItems(4).Text = "WMS System Error LAN Cable Check."
+                Form1.lvMainIPList1.Items(aIndex1).SubItems(4).Text = "WMS System Error LAN Cable Check."
+                Form1.lvMainIPList1.Items(aindex2).SubItems(4).Text = "WMS System Error LAN Cable Check."
+                Form1.lvMainIPList1.Items(aindex3).SubItems(4).Text = "WMS System Error LAN Cable Check."
+
+                Form1.lvMainIPList1.Items(cIndex).ForeColor = Color.Red
+                Form1.lvMainIPList1.Items(aIndex1).ForeColor = Color.Red
+                Form1.lvMainIPList1.Items(aindex2).ForeColor = Color.Red
+                Form1.lvMainIPList1.Items(aindex3).ForeColor = Color.Red
+
+            End If
             BackgroundWorker1.RunWorkerAsync()
 
         Catch ex As Exception
